@@ -1,6 +1,7 @@
 # tic-tac-toe
 
 `tic-tac-toe` (or `ttt`) is an implementation of classical tic-tac-toe game for terminal I/O.
+Tested on both GNU/Linux and macOS.
 
 ## Objectives
 * Getting comfortable with GNU/Linux Environment
