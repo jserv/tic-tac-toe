@@ -3,7 +3,16 @@
 
 #include <stdbool.h>
 
-enum keys { K_UNKNOWN, K_UP, K_DOWN, K_LEFT, K_RIGHT, K_ESC, K_ENTER, SIZE_KEY_SEQUENCES };
+enum keys {
+    K_UNKNOWN,
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESC,
+    K_ENTER,
+    SIZE_KEY_SEQUENCES
+};
 
 int tui_read_key(int *key);
 int tui_save_term();
