@@ -1,5 +1,5 @@
 CC ?= gcc
-CFLAGS = -O -Wall
+CFLAGS = -O -Wall -Wno-unused-result
 LDFLAGS = -lpthread
 
 OBJS = game.o tui.o
