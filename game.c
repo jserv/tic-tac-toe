@@ -18,7 +18,7 @@ static status_t game_field[3][3] = {
 };
 
 static bool is_finished = false;
-static status_t previous_player_move = EMPTY;
+static status_t prev_move = EMPTY;
 
 static pthread_mutex_t game_mutex;
 
@@ -225,8 +225,8 @@ static int human_move(int row, int col, status_t player)
 {
     pthread_mutex_lock(&game_mutex);
 
-    if (game_field[row][col] == EMPTY && previous_player_move != player) {
-        previous_player_move = player;
+    if (game_field[row][col] == EMPTY && prev_move != player) {
+        prev_move = player;
         game_field[row][col] = player; /* put zero */
         update_game_field(row, col);
 
@@ -244,8 +244,8 @@ static void computer_move(status_t player)
 
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
-            if (game_field[i][j] == EMPTY && previous_player_move != player) {
-                previous_player_move = player;
+            if (game_field[i][j] == EMPTY && prev_move != player) {
+                prev_move = player;
                 game_field[i][j] = player; /* put zero */
                 update_game_field(i, j);
                 pthread_mutex_unlock(&game_mutex);
@@ -308,7 +308,6 @@ static int main_screen()
     return 0;
 }
 
-// main single player game routine
 static int game_session()
 {
     pthread_t computer;
@@ -329,6 +328,7 @@ static int game_session()
     pthread_create(&computer, 0, computer_func, (void *) &unused);
 
     int key;
+    /* FIXME: we shall check the valid range of row and col */
     while (!is_finished && tui_read_key(&key) == 0 && key != K_ESC) {
         switch (key) {
         case K_UP:
