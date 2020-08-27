@@ -126,7 +126,6 @@ int tui_draw_big_char(int *big,
     return 0;
 }
 
-#define SIZE_KEY_SEQUENCES 15
 static char *key_sequences[SIZE_KEY_SEQUENCES];
 
 static int is_supported_key(char *sequence, int *key, int len)
