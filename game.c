@@ -301,8 +301,10 @@ static int main_screen()
 
     /* keys */
     tui_goto_pos(34, 5);
+    write(tty, "Arrow Keys - cursor movement ", 30);
+    tui_goto_pos(35, 5);
     write(tty, "Enter - put ", 13);
-    tui_goto_pos(34, 25);
+    tui_goto_pos(35, 25);
     write(tty, "ESC - quit    ", 15);
 
     return 0;
