@@ -27,7 +27,7 @@ static void computer_move(status_t player);
 static void *computer_func(void *arg)
 {
     while (1) {
-        sleep(1);
+        usleep(200 * 1000);
         computer_move(CROSS);
     }
     return 0;
