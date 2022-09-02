@@ -33,7 +33,7 @@ static void *computer_func(void *arg)
     return 0;
 }
 
-static int gamePlay(status_t game_state[3][3])
+static int play(status_t s[3][3])
 {
     /*             case7               case8
      *                 \   c4   c5  c6   /
@@ -45,87 +45,53 @@ static int gamePlay(status_t game_state[3][3])
      */
 
     /* case 1, 2, 3 */
-    if (game_state[0][0] == NOUGHT && game_state[0][1] == NOUGHT &&
-        game_state[0][2] == NOUGHT) {
+    if (s[0][0] == NOUGHT && s[0][1] == NOUGHT && s[0][2] == NOUGHT)
         return NOUGHT;
-    }
-    if (game_state[1][0] == NOUGHT && game_state[1][1] == NOUGHT &&
-        game_state[1][2] == NOUGHT) {
+    if (s[1][0] == NOUGHT && s[1][1] == NOUGHT && s[1][2] == NOUGHT)
         return NOUGHT;
-    }
-    if (game_state[2][0] == NOUGHT && game_state[2][1] == NOUGHT &&
-        game_state[2][2] == NOUGHT) {
+    if (s[2][0] == NOUGHT && s[2][1] == NOUGHT && s[2][2] == NOUGHT)
         return NOUGHT;
-    }
 
     /* case 4, 5 , 6 */
-    if (game_state[0][0] == NOUGHT && game_state[1][0] == NOUGHT &&
-        game_state[2][0] == NOUGHT) {
+    if (s[0][0] == NOUGHT && s[1][0] == NOUGHT && s[2][0] == NOUGHT)
         return NOUGHT;
-    }
-    if (game_state[0][1] == NOUGHT && game_state[1][1] == NOUGHT &&
-        game_state[2][1] == NOUGHT) {
+    if (s[0][1] == NOUGHT && s[1][1] == NOUGHT && s[2][1] == NOUGHT)
         return NOUGHT;
-    }
-    if (game_state[0][2] == NOUGHT && game_state[1][2] == NOUGHT &&
-        game_state[2][2] == NOUGHT) {
+    if (s[0][2] == NOUGHT && s[1][2] == NOUGHT && s[2][2] == NOUGHT)
         return NOUGHT;
-    }
 
     /* case 7, 8 */
-    if (game_state[0][0] == NOUGHT && game_state[1][1] == NOUGHT &&
-        game_state[2][2] == NOUGHT) {
+    if (s[0][0] == NOUGHT && s[1][1] == NOUGHT && s[2][2] == NOUGHT)
         return NOUGHT;
-    }
-    if (game_state[0][2] == NOUGHT && game_state[1][1] == NOUGHT &&
-        game_state[2][0] == NOUGHT) {
+    if (s[0][2] == NOUGHT && s[1][1] == NOUGHT && s[2][0] == NOUGHT)
         return NOUGHT;
-    }
 
     /* case 1, 2, 3 */
-    if (game_state[0][0] == CROSS && game_state[0][1] == CROSS &&
-        game_state[0][2] == CROSS) {
+    if (s[0][0] == CROSS && s[0][1] == CROSS && s[0][2] == CROSS)
         return CROSS;
-    }
-    if (game_state[1][0] == CROSS && game_state[1][1] == CROSS &&
-        game_state[1][2] == CROSS) {
+    if (s[1][0] == CROSS && s[1][1] == CROSS && s[1][2] == CROSS)
         return CROSS;
-    }
-    if (game_state[2][0] == CROSS && game_state[2][1] == CROSS &&
-        game_state[2][2] == CROSS) {
+    if (s[2][0] == CROSS && s[2][1] == CROSS && s[2][2] == CROSS)
         return CROSS;
-    }
 
     /* case 4, 5, 6 */
-    if (game_state[0][0] == CROSS && game_state[1][0] == CROSS &&
-        game_state[2][0] == CROSS) {
+    if (s[0][0] == CROSS && s[1][0] == CROSS && s[2][0] == CROSS)
         return CROSS;
-    }
-    if (game_state[0][1] == CROSS && game_state[1][1] == CROSS &&
-        game_state[2][1] == CROSS) {
+    if (s[0][1] == CROSS && s[1][1] == CROSS && s[2][1] == CROSS)
         return CROSS;
-    }
-    if (game_state[0][2] == CROSS && game_state[1][2] == CROSS &&
-        game_state[2][2] == CROSS) {
+    if (s[0][2] == CROSS && s[1][2] == CROSS && s[2][2] == CROSS)
         return CROSS;
-    }
 
     /* case 7, 8 */
-    if (game_state[0][0] == CROSS && game_state[1][1] == CROSS &&
-        game_state[2][2] == CROSS) {
+    if (s[0][0] == CROSS && s[1][1] == CROSS && s[2][2] == CROSS)
         return CROSS;
-    }
-    if (game_state[0][2] == CROSS && game_state[1][1] == CROSS &&
-        game_state[2][0] == CROSS) {
+    if (s[0][2] == CROSS && s[1][1] == CROSS && s[2][0] == CROSS)
         return CROSS;
-    }
 
     /* end in a draw */
-    if (game_state[0][0] != EMPTY && game_state[0][1] != EMPTY &&
-        game_state[0][2] != EMPTY && game_state[1][0] != EMPTY &&
-        game_state[1][1] != EMPTY && game_state[1][2] != EMPTY &&
-        game_state[2][0] != EMPTY && game_state[2][1] != EMPTY &&
-        game_state[2][2] != EMPTY) {
+    if (s[0][0] != EMPTY && s[0][1] != EMPTY && s[0][2] != EMPTY &&
+        s[1][0] != EMPTY && s[1][1] != EMPTY && s[1][2] != EMPTY &&
+        s[2][0] != EMPTY && s[2][1] != EMPTY && s[2][2] != EMPTY) {
         return DRAW;
     }
 
@@ -156,7 +122,7 @@ static bool game_over(status_t winner)
         write(1, "Played in Draw", 15);
         return true;
     default:
-        return false;
+	return false;
     }
 }
 
@@ -231,7 +197,7 @@ static int human_move(int row, int col, status_t player)
         update_game_field(row, col);
 
         /* check if it time to game over */
-        is_finished = game_over(gamePlay(game_field));
+        is_finished = game_over(play(game_field));
     }
 
     pthread_mutex_unlock(&game_mutex);
@@ -254,7 +220,7 @@ static void computer_move(status_t player)
         }
     }
 
-    is_finished = game_over(gamePlay(game_field));
+    is_finished = game_over(play(game_field));
     pthread_mutex_unlock(&game_mutex);
 }
 
