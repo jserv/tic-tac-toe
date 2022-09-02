@@ -9,7 +9,7 @@
 
 #include "tui.h"
 
-typedef enum { ZERO, CROSS, EMPTY, FULL, DRAW } status_t;
+typedef enum { NOUGHT, CROSS, EMPTY, FULL, DRAW } status_t;
 
 static status_t game_field[3][3] = {
     {EMPTY, EMPTY, EMPTY},
@@ -45,41 +45,41 @@ static int gamePlay(status_t game_state[3][3])
      */
 
     /* case 1, 2, 3 */
-    if (game_state[0][0] == ZERO && game_state[0][1] == ZERO &&
-        game_state[0][2] == ZERO) {
-        return ZERO;
+    if (game_state[0][0] == NOUGHT && game_state[0][1] == NOUGHT &&
+        game_state[0][2] == NOUGHT) {
+        return NOUGHT;
     }
-    if (game_state[1][0] == ZERO && game_state[1][1] == ZERO &&
-        game_state[1][2] == ZERO) {
-        return ZERO;
+    if (game_state[1][0] == NOUGHT && game_state[1][1] == NOUGHT &&
+        game_state[1][2] == NOUGHT) {
+        return NOUGHT;
     }
-    if (game_state[2][0] == ZERO && game_state[2][1] == ZERO &&
-        game_state[2][2] == ZERO) {
-        return ZERO;
+    if (game_state[2][0] == NOUGHT && game_state[2][1] == NOUGHT &&
+        game_state[2][2] == NOUGHT) {
+        return NOUGHT;
     }
 
     /* case 4, 5 , 6 */
-    if (game_state[0][0] == ZERO && game_state[1][0] == ZERO &&
-        game_state[2][0] == ZERO) {
-        return ZERO;
+    if (game_state[0][0] == NOUGHT && game_state[1][0] == NOUGHT &&
+        game_state[2][0] == NOUGHT) {
+        return NOUGHT;
     }
-    if (game_state[0][1] == ZERO && game_state[1][1] == ZERO &&
-        game_state[2][1] == ZERO) {
-        return ZERO;
+    if (game_state[0][1] == NOUGHT && game_state[1][1] == NOUGHT &&
+        game_state[2][1] == NOUGHT) {
+        return NOUGHT;
     }
-    if (game_state[0][2] == ZERO && game_state[1][2] == ZERO &&
-        game_state[2][2] == ZERO) {
-        return ZERO;
+    if (game_state[0][2] == NOUGHT && game_state[1][2] == NOUGHT &&
+        game_state[2][2] == NOUGHT) {
+        return NOUGHT;
     }
 
     /* case 7, 8 */
-    if (game_state[0][0] == ZERO && game_state[1][1] == ZERO &&
-        game_state[2][2] == ZERO) {
-        return ZERO;
+    if (game_state[0][0] == NOUGHT && game_state[1][1] == NOUGHT &&
+        game_state[2][2] == NOUGHT) {
+        return NOUGHT;
     }
-    if (game_state[0][2] == ZERO && game_state[1][1] == ZERO &&
-        game_state[2][0] == ZERO) {
-        return ZERO;
+    if (game_state[0][2] == NOUGHT && game_state[1][1] == NOUGHT &&
+        game_state[2][0] == NOUGHT) {
+        return NOUGHT;
     }
 
     /* case 1, 2, 3 */
@@ -144,8 +144,8 @@ static bool game_over(status_t winner)
     tui_goto_pos(15, 17);
 
     switch (winner) {
-    case ZERO:
-        write(1, "Zero(O) won", 12);
+    case NOUGHT:
+        write(1, "Nought(O) won", 14);
         return true;
 
     case CROSS:
@@ -164,17 +164,17 @@ static void update_game_field(int row, int col)
 {
     int big[2];
 
-    /* 1: zero, 2: cross */
+    /* 1: nought, 2: cross */
     for (int i = 0, xpos = 5; i < 3; i++, xpos = xpos + 15) {
         if (row == 0 && col == i) {
-            if (game_field[0][i] == ZERO)
+            if (game_field[0][i] == NOUGHT)
                 tui_draw_big_char(big, 3, xpos, 'o', cBlack, cGreen);
             if (game_field[0][i] == CROSS)
                 tui_draw_big_char(big, 3, xpos, 'x', cBlack, cGreen);
             if (game_field[0][i] == EMPTY)
                 tui_draw_big_char(big, 3, xpos, '*', cBlack, cGreen);
         } else {
-            if (game_field[0][i] == ZERO)
+            if (game_field[0][i] == NOUGHT)
                 tui_draw_big_char(big, 3, xpos, 'o', cGreen, cBlack);
             if (game_field[0][i] == CROSS)
                 tui_draw_big_char(big, 3, xpos, 'x', cGreen, cBlack);
@@ -186,14 +186,14 @@ static void update_game_field(int row, int col)
     for (int i = 0, xpos = 5; i < 3; i++, xpos = xpos + 15) {
         /* select the desired cell */
         if (row == 1 && col == i) {
-            if (game_field[1][i] == ZERO)
+            if (game_field[1][i] == NOUGHT)
                 tui_draw_big_char(big, 13, xpos, 'o', cBlack, cGreen);
             if (game_field[1][i] == CROSS)
                 tui_draw_big_char(big, 13, xpos, 'x', cBlack, cGreen);
             if (game_field[1][i] == EMPTY)
                 tui_draw_big_char(big, 13, xpos, '*', cBlack, cGreen);
         } else {
-            if (game_field[1][i] == ZERO)
+            if (game_field[1][i] == NOUGHT)
                 tui_draw_big_char(big, 13, xpos, 'o', cGreen, cBlack);
             if (game_field[1][i] == CROSS)
                 tui_draw_big_char(big, 13, xpos, 'x', cGreen, cBlack);
@@ -204,14 +204,14 @@ static void update_game_field(int row, int col)
 
     for (int i = 0, xpos = 5; i < 3; i++, xpos = xpos + 15) {
         if (row == 2 && col == i) {
-            if (game_field[2][i] == ZERO)
+            if (game_field[2][i] == NOUGHT)
                 tui_draw_big_char(big, 23, xpos, 'o', cBlack, cGreen);
             if (game_field[2][i] == CROSS)
                 tui_draw_big_char(big, 23, xpos, 'x', cBlack, cGreen);
             if (game_field[2][i] == EMPTY)
                 tui_draw_big_char(big, 23, xpos, '*', cBlack, cGreen);
         } else {
-            if (game_field[2][i] == ZERO)
+            if (game_field[2][i] == NOUGHT)
                 tui_draw_big_char(big, 23, xpos, 'o', cGreen, cBlack);
             if (game_field[2][i] == CROSS)
                 tui_draw_big_char(big, 23, xpos, 'x', cGreen, cBlack);
@@ -227,7 +227,7 @@ static int human_move(int row, int col, status_t player)
 
     if (game_field[row][col] == EMPTY && prev_move != player) {
         prev_move = player;
-        game_field[row][col] = player; /* put zero */
+        game_field[row][col] = player; /* put nought(O) */
         update_game_field(row, col);
 
         /* check if it time to game over */
@@ -246,7 +246,7 @@ static void computer_move(status_t player)
         for (int j = 0; j < 3; j++) {
             if (game_field[i][j] == EMPTY && prev_move != player) {
                 prev_move = player;
-                game_field[i][j] = player; /* put zero */
+                game_field[i][j] = player; /* put nought(O) */
                 update_game_field(i, j);
                 pthread_mutex_unlock(&game_mutex);
                 return;
@@ -358,7 +358,7 @@ static int game_session()
             }
             break;
         case K_ENTER:
-            human_move(row, col, ZERO);
+            human_move(row, col, NOUGHT);
             break;
         }
     }
