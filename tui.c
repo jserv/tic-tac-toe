@@ -63,7 +63,7 @@ int tui_draw_box(int x1, int y1, int x2, int y2)
     return 0;
 }
 
-static int print_big_char(int mas[],
+static int print_big_char(const int mas[],
                           int x,
                           int y,
                           tui_color_t fg,
@@ -163,10 +163,9 @@ int tui_read_key(int *key)
         return -1;
 
     int len = 1;
-    int res;
     char tmp_key[KEY_MAX_LEN];
     while (read(0, &(tmp_key[len - 1]), 1) > 0 && len <= KEY_MAX_LEN) {
-        res = is_supported_key(tmp_key, key, len);
+        int res = is_supported_key(tmp_key, key, len);
         if (res <= 0)
             return res;
         len++;
@@ -237,7 +236,6 @@ int tui_clear_screen()
 
 int tui_goto_pos(int row, int col)
 {
-    int len;
     int tty = open("/dev/tty", O_RDWR);
     if (tty == -1) {
         close(tty);
@@ -246,7 +244,7 @@ int tui_goto_pos(int row, int col)
 
     if ((row > -1 && row <= TERM_ROW) && (col > -1 && col <= TERM_COL)) {
         char str[20];
-        len = sprintf(str, "\033[%d;%dH", row, col);
+        int len = sprintf(str, "\033[%d;%dH", row, col);
         write(tty, str, len);
         close(tty);
         return 0;
